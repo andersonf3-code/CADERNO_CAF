@@ -338,6 +338,8 @@ def criar_mascara_caf_ativo(df):
 def carregar_dados_caf(origem):
     df = ler_csv_seguro(origem)
     df = padronizar_colunas(df)
+    
+    print("COLUNAS DADOS_CAF:", df.columns.tolist())
 
     df = garantir_coluna(df, ["nr_caf", "nr_caf_"], "nr_caf")
     if "nr_caf" not in df.columns:
@@ -354,7 +356,7 @@ def carregar_dados_caf(origem):
         df = df[["nr_caf", "st_caf_ativo"]].copy()
 
     return df
-    print(df.columns.tolist())
+    
 
 @st.cache_data(show_spinner=True)
 def carregar_especificacao(origem):
