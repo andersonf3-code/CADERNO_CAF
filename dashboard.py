@@ -21,10 +21,10 @@ st.set_page_config(
 # =========================================================
 # PARÂMETROS
 # =========================================================
-ARQUIVO_DADOS_CAF_PADRAO = r"01 - DADOS_CAF.csv"
-ARQUIVO_ESPECIFICACAO_PADRAO = r"03 - ESPECIFICACAO.csv"
-ARQUIVO_AREA_PADRAO = r"05 - AREA.csv"
-ARQUIVO_RENDA_PADRAO = r"07 - PRODUCAO.csv"
+ARQUIVO_DADOS_CAF_PADRAO = "https://drive.google.com/uc?id=1MCxERa2nUi7C4GwqP6uKUq9dkXf_qMWR"
+ARQUIVO_ESPECIFICACAO_PADRAO = "https://drive.google.com/uc?id=1iTdx_lmzKk7CwSqeD2TGuPWW0BtgkLF_"
+ARQUIVO_AREA_PADRAO = "https://drive.google.com/uc?id=1g_d7mo_AVWTADSpApylaxC8PAOgP9m1J"
+ARQUIVO_RENDA_PADRAO = "https://drive.google.com/uc?id=1JIqUWwORIhz56TIgEBVIqlCK1ogmp8KN"
 
 CARACTERIZACAO_AREA_ALVO = "DEMAIS AGRICULTORES FAMILIARES"
 
