@@ -338,12 +338,20 @@ def criar_mascara_caf_ativo(df):
 def carregar_dados_caf(origem):
     df = ler_csv_seguro(origem)
     df = padronizar_colunas(df)
-    
-    print("COLUNAS DADOS_CAF:", df.columns.tolist())
 
-    df = garantir_coluna(df, ["nr_caf", "nr_caf_"], "nr_caf")
+    st.write("Colunas lidas em 01 - DADOS_CAF:", df.columns.tolist())
+
+    df = garantir_coluna(
+        df,
+        ["nr_caf", "nr_caf_", "caf", "numero_caf", "nu_caf", "id_caf"],
+        "nr_caf"
+    )
+
     if "nr_caf" not in df.columns:
-        raise ValueError("Coluna obrigatória ausente no arquivo 01 - DADOS_CAF: nr_caf")
+        raise ValueError(
+            f"Coluna obrigatória ausente no arquivo 01 - DADOS_CAF: nr_caf. "
+            f"Colunas encontradas: {df.columns.tolist()}"
+        )
 
     df["nr_caf"] = normalizar_nr_caf(df["nr_caf"])
     mascara_ativo, coluna_status = criar_mascara_caf_ativo(df)
