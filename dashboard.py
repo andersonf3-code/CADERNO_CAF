@@ -354,7 +354,7 @@ def carregar_dados_caf(origem):
         df = df[["nr_caf", "st_caf_ativo"]].copy()
 
     return df
-
+    print(df.columns.tolist())
 
 @st.cache_data(show_spinner=True)
 def carregar_especificacao(origem):
