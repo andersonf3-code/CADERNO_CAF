@@ -22,10 +22,10 @@ st.set_page_config(
 # =========================================================
 # PARÂMETROS
 # =========================================================
-ARQUIVO_DADOS_CAF_PADRAO = "https://drive.google.com/uc?id=1MCxERa2nUi7C4GwqP6uKUq9dkXf_qMWR"
-ARQUIVO_ESPECIFICACAO_PADRAO = "https://drive.google.com/uc?id=1iTdx_lmzKk7CwSqeD2TGuPWW0BtgkLF_"
-ARQUIVO_AREA_PADRAO = "https://drive.google.com/uc?id=1g_d7mo_AVWTADSpApylaxC8PAOgP9m1J"
-ARQUIVO_RENDA_PADRAO = "https://drive.google.com/uc?id=1JIqUWwORIhz56TIgEBVIqlCK1ogmp8KN"
+ARQUIVO_DADOS_CAF_PADRAO = "https://drive.usercontent.google.com/download?id=1MCxERa2nUi7C4GwqP6uKUq9dkXf_qMWR&confirm=t"
+ARQUIVO_ESPECIFICACAO_PADRAO = "https://drive.usercontent.google.com/download?id=1iTdx_lmzKk7CwSqeD2TGuPWW0BtgkLF_&confirm=t"
+ARQUIVO_AREA_PADRAO = "https://drive.usercontent.google.com/download?id=1g_d7mo_AVWTADSpApylaxC8PAOgP9m1J&confirm=t"
+ARQUIVO_RENDA_PADRAO = "https://drive.usercontent.google.com/download?id=1JIqUWwORIhz56TIgEBVIqlCK1ogmp8KN&confirm=t"
 
 CARACTERIZACAO_AREA_ALVO = "DEMAIS AGRICULTORES FAMILIARES"
 
