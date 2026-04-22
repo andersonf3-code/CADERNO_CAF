@@ -337,6 +337,9 @@ def criar_mascara_caf_ativo(df):
 @st.cache_data(show_spinner=True)
 def carregar_dados_caf(origem):
     df = ler_csv_seguro(origem)
+    st.write("Prévia bruta 01 - DADOS_CAF:")
+    st.write(df.head())
+
     df = padronizar_colunas(df)
 
     st.write("Colunas lidas em 01 - DADOS_CAF:", df.columns.tolist())
