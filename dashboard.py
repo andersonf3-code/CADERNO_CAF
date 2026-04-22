@@ -2,7 +2,8 @@ import math
 import io
 import unicodedata
 from pathlib import Path
-
+from urllib.request import urlopen, Request
+from urllib.parse import urlparse
 import numpy as np
 import pandas as pd
 import plotly.express as px
@@ -144,8 +145,22 @@ def contar_cafs_unicos(df):
     return df["nr_caf"].astype(str).nunique()
 
 
+def eh_url(valor):
+    if not isinstance(valor, str):
+        return False
+    parsed = urlparse(valor)
+    return parsed.scheme in ("http", "https") and bool(parsed.netloc)
+
+def baixar_bytes_url(url):
+    req = Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urlopen(req) as resp:
+        return resp.read()
+
 def detectar_separador(caminho_ou_bytes):
-    if isinstance(caminho_ou_bytes, (str, Path)):
+    if eh_url(caminho_ou_bytes):
+        conteudo = baixar_bytes_url(caminho_ou_bytes)[:5000]
+        amostra = conteudo.decode("utf-8", errors="ignore")
+    elif isinstance(caminho_ou_bytes, (str, Path)):
         amostra = Path(caminho_ou_bytes).read_text(encoding="utf-8", errors="ignore")[:5000]
     else:
         pos = caminho_ou_bytes.tell()
@@ -155,24 +170,33 @@ def detectar_separador(caminho_ou_bytes):
             amostra = conteudo.decode("utf-8", errors="ignore")
         except Exception:
             amostra = str(conteudo)
-    return ";" if amostra.count(";") > amostra.count(",") else ","
 
+    return ";" if amostra.count(";") > amostra.count(",") else ","
 
 def ler_csv_seguro(origem):
     sep = detectar_separador(origem)
+
+    if eh_url(origem):
+        conteudo = baixar_bytes_url(origem)
+        buffer = io.BytesIO(conteudo)
+        try:
+            return pd.read_csv(buffer, sep=sep, encoding="utf-8", low_memory=False)
+        except UnicodeDecodeError:
+            buffer.seek(0)
+            return pd.read_csv(buffer, sep=sep, encoding="latin1", low_memory=False)
+
     if isinstance(origem, (str, Path)):
         try:
-            df = pd.read_csv(origem, sep=sep, encoding="utf-8", low_memory=False)
+            return pd.read_csv(origem, sep=sep, encoding="utf-8", low_memory=False)
         except UnicodeDecodeError:
-            df = pd.read_csv(origem, sep=sep, encoding="latin1", low_memory=False)
-    else:
-        try:
-            origem.seek(0)
-            df = pd.read_csv(origem, sep=sep, encoding="utf-8", low_memory=False)
-        except UnicodeDecodeError:
-            origem.seek(0)
-            df = pd.read_csv(origem, sep=sep, encoding="latin1", low_memory=False)
-    return df
+            return pd.read_csv(origem, sep=sep, encoding="latin1", low_memory=False)
+
+    try:
+        origem.seek(0)
+        return pd.read_csv(origem, sep=sep, encoding="utf-8", low_memory=False)
+    except UnicodeDecodeError:
+        origem.seek(0)
+        return pd.read_csv(origem, sep=sep, encoding="latin1", low_memory=False)
 
 
 def normalizar_texto_serie(serie):
